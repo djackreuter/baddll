@@ -7,13 +7,13 @@ use windows::Win32::Globalization::{EnumCalendarInfoA, ENUM_ALL_CALENDARS, CAL_S
 use windows::Win32::System::Memory::{PAGE_READWRITE, MEM_RESERVE};
 use windows::Win32::System::SystemServices::{DLL_THREAD_ATTACH, DLL_PROCESS_DETACH, DLL_THREAD_DETACH};
 use windows::Win32::System::Threading::GetCurrentProcess;
-use windows::Win32::{Foundation::{HINSTANCE, HANDLE}, System::{SystemServices::DLL_PROCESS_ATTACH, Memory::{MEM_COMMIT, PAGE_EXECUTE_READ}}};
+use windows::Win32::{Foundation::{HMODULE, HANDLE}, System::{SystemServices::DLL_PROCESS_ATTACH, Memory::{MEM_COMMIT, PAGE_EXECUTE_READ}}};
 use windows::core::PCSTR;
 
 
 #[no_mangle]
 #[allow(non_snake_case)]
-fn DllMain(_hinst: HINSTANCE, fdwReason: u32, _lpvReserved: c_void) -> BOOL {
+fn DllMain(_hinst: HMODULE, fdwReason: u32, _lpvReserved: c_void) -> BOOL {
     match fdwReason {
         DLL_PROCESS_ATTACH => run(),
         DLL_THREAD_ATTACH => return BOOL(1),
